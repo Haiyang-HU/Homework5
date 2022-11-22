@@ -44,4 +44,7 @@ data <- homicides%>%
                                   Solved = "Closed by arrest",
                                   Unsolved = "Closed without arrest",
                                   Unsolved = "Open/No arrest"))
+
+data_test <- st_as_sf(data, coords = c("lon", "lat"))%>%
+  st_set_crs(4269)
 ```
