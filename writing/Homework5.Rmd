@@ -23,12 +23,37 @@ library(stringr)
 library(forcats)
 library(broom)
 library(purrr)
-
+library(sf)
+library(tigris)
+library(viridis)
 ```
 # Q1
 ```{r}
 data_url <- paste0("https://raw.githubusercontent.com/washingtonpost/",
 "data-homicides/master/homicide-data.csv")
 homicides <- read.csv(data_url)
-data1 <- read.csv("../data/homicide-data.csv")
+homicides <- homicides%>%
+   unite(city_name,c("city","state"),sep = ",")
+
+data <- homicides%>%
+  filter(city_name == "Denver,CO")%>%
+  mutate(victim_race = as_factor(x = victim_race),
+         victim_race = fct_lump(victim_race, n=3))%>%
+  mutate(disposition = as_factor(x = disposition),
+         disposition = fct_recode(.f = disposition,
+                                  Solved = "Closed by arrest",
+                                  Unsolved = "Closed without arrest",
+                                  Unsolved = "Open/No arrest"))
+  
+
+data_test <- st_as_sf(data, coords = c("lon", "lat"))%>%
+  st_set_crs(4269)
+
+co_denver <- counties(state = "CO", cb = TRUE, class = "sf")%>%
+  filter(NAME == "Denver")
+
+ggplot()+
+  geom_sf(data = co_denver,color = "lightgray")+
+  geom_sf(data = data_test, aes(color = victim_race, shape = disposition))
+#  scale_color_viridis(name = "Race")
 ```
