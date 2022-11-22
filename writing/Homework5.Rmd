@@ -29,5 +29,9 @@ library(viridis)
 ```
 # Q1
 ```{r}
-
+data_url <- paste0("https://raw.githubusercontent.com/washingtonpost/",
+                   "data-homicides/master/homicide-data.csv")
+homicides <- read.csv(data_url)
+homicides <- homicides%>%
+  unite(city_name,c("city","state"),sep = ",")
 ```
