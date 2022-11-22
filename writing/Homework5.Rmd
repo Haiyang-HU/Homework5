@@ -34,4 +34,14 @@ data_url <- paste0("https://raw.githubusercontent.com/washingtonpost/",
 homicides <- read.csv(data_url)
 homicides <- homicides%>%
   unite(city_name,c("city","state"),sep = ",")
+
+data <- homicides%>%
+  filter(city_name == "Denver,CO")%>%
+  mutate(victim_race = as_factor(x = victim_race),
+         victim_race = fct_lump(victim_race, n=3))%>%
+  mutate(disposition = as_factor(x = disposition),
+         disposition = fct_recode(.f = disposition,
+                                  Solved = "Closed by arrest",
+                                  Unsolved = "Closed without arrest",
+                                  Unsolved = "Open/No arrest"))
 ```
