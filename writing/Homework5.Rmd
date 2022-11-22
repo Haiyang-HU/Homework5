@@ -53,5 +53,6 @@ co_denver <- counties(state = "CO", cb = TRUE, class = "sf")%>%
 
 ggplot()+
   geom_sf(data = co_denver,color = "lightgray")+
-  geom_sf(data = data_test, aes(color = victim_race, shape = disposition))
+  geom_sf(data = data_test, aes(color = victim_race, shape = disposition))+
+  labs(colour = "Top three", shape = "Case solved or not")
 ```
