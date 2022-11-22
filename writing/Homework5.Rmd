@@ -47,4 +47,7 @@ data <- homicides%>%
 
 data_test <- st_as_sf(data, coords = c("lon", "lat"))%>%
   st_set_crs(4269)
+
+co_denver <- counties(state = "CO", cb = TRUE, class = "sf")%>%
+  filter(NAME == "Denver")
 ```
