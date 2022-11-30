@@ -60,7 +60,8 @@ ggplot()+
   theme(axis.line = element_blank(),
         axis.text = element_blank(),
         axis.ticks = element_blank())+
-  ggtitle("Locations of the homicides in Denver")
+  ggtitle("Locations of the homicides in Denver")+
+  theme(plot.title = element_text(hjust = 0.5))
         
   
   
