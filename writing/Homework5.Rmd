@@ -56,6 +56,11 @@ ggplot()+
   geom_sf(data = data_test, aes(color = victim_race, shape = disposition))+
   labs(colour = "Top three", shape = "Case solved or not")+
   theme_dark()+
-  facet_wrap(~disposition, ncol = 2)
+  facet_wrap(~disposition, ncol = 2)+
+  theme(axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+        
+  
   
 ```
